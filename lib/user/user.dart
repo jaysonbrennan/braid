@@ -20,10 +20,13 @@ class User {
     final userId = json['userId'] as String;
     final me = json['me'];
     final username = me['name'] as String;
-    final emails = me['emails'].map((email) => email['address']).toList();
+    final emails = me['emails']
+        .map((email) => (email['address'] as String))
+        .toList()
+        .cast<String>();
     final status = me['status'] as String;
     final utcOffset = me['utcOffset'] as int;
-    final roles = me['roles'] as List<String>;
+    final roles = (me['roles'] as List<dynamic>).cast<String>();
     final avatar = me['avatarUrl'];
 
     return User(
