@@ -1,8 +1,12 @@
 import 'package:braid/views/login.dart';
 import 'package:flutter/material.dart';
+import 'user/user.dart';
+import 'services/rocketchat.dart' as rocketchat;
 
 class Braid extends StatelessWidget {
-  const Braid({Key? key}) : super(key: key);
+  Braid({Key? key}) : super(key: key);
+
+  User? _user;
 
   // This widget is the root of your application.
   @override
