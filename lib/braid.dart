@@ -1,14 +1,32 @@
-import 'package:braid/views/login.dart';
+
 import 'package:flutter/material.dart';
+
+import 'routing/braid_delegate.dart';
+import 'routing/braid_parser.dart';
+import 'routing/route_state.dart';
 import 'user/user.dart';
 import 'services/rocketchat.dart' as rocketchat;
 
-class Braid extends StatelessWidget {
-  Braid({Key? key}) : super(key: key);
+class Braid extends StatefulWidget {
+  const Braid({Key? key}) : super(key: key);
 
+  @override
+  _BraidState createState() => _BraidState();
+}
+
+class _BraidState extends State<Braid> {
+  final _routeState = RouteState();
+  final _routeInformationParser = BraidRouteInformationParser();
+  late final _routerDelegate;
   User? _user;
 
-  // This widget is the root of your application.
+  @override
+  void initState() {
+    _routerDelegate = BraidRouterDelegate(_routeState);
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,11 +34,10 @@ class Braid extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/login',
-      routes: <String, WidgetBuilder>{
-        '/': (context) => const MyHomePage(title: 'Braid Home Page'),
-        '/login': (context) => const LoginPage(),
-      },
+      home: MaterialApp.router(
+        routeInformationParser: _routeInformationParser,
+        routerDelegate: _routerDelegate,
+      ),
     );
   }
 }

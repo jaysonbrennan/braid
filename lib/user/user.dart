@@ -1,7 +1,7 @@
 class User {
   final String username;
   final String userId;
-  final List<String> emails;
+  late List<String> emails;
   final List<String> roles;
   final String status;
   final int utcOffset;
