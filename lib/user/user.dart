@@ -9,8 +9,6 @@ class User with ChangeNotifier {
   int utcOffset;
   String avatar;
 
-  bool loggedIn = false;
-
   User(
       {this.username,
       this.userId,
