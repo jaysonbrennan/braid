@@ -41,7 +41,9 @@ class User with ChangeNotifier {
       roles = userInfo.roles;
       authToken = userInfo.authToken;
 
-      notifyListeners();
+      _loggedIn = true;
     }
+
+    notifyListeners();
   }
 }
