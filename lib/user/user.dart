@@ -19,13 +19,14 @@ class User with ChangeNotifier {
 
   get isLoggedIn => _loggedIn;
 
-  Future<bool> login({
+  void login({
     required String host,
     required String username,
     required String password,
+    void Function()? onFailure,
   }) async {
     if (_loggedIn == true) {
-      return true;
+      return;
     }
 
     UserInfo? userInfo = await _loginService.login(
@@ -35,16 +36,20 @@ class User with ChangeNotifier {
       password: password,
     );
 
-    if (userInfo != null) {
-      this.username = userInfo.username;
-      userId = userInfo.userId;
-      roles = userInfo.roles;
-      authToken = userInfo.authToken;
+    if (userInfo == null) {
+      if (onFailure != null) {
+        onFailure();
+      }
 
-      _loggedIn = true;
-      notifyListeners();
+      return;
     }
 
-    return _loggedIn;
+    this.username = userInfo.username;
+    userId = userInfo.userId;
+    roles = userInfo.roles;
+    authToken = userInfo.authToken;
+
+    _loggedIn = true;
+    notifyListeners();
   }
 }
