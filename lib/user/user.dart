@@ -1,49 +1,47 @@
 import 'package:flutter/foundation.dart';
+import '../services/login_service.dart';
+import 'user_info.dart';
+import 'package:http/http.dart' as http;
 
 class User with ChangeNotifier {
-  final String? username;
-  final String? userId;
-  final List<String?>? emails;
-  final List<String>? roles;
-  String status;
-  int utcOffset;
-  String avatar;
+  LoginService _loginService;
+  String? username;
+  String? userId;
+  List<AccountRole>? roles;
+  String? authToken;
+  List<String>? emails;
+  String? status;
+  int? utcOffset;
+  String? avatar;
+  bool _loggedIn = false;
 
-  User(
-      {this.username,
-      this.userId,
-      this.emails,
-      this.roles,
-      this.status = 'offline',
-      this.utcOffset = 0,
-      this.avatar = ''});
+  User({required LoginService loginService}) : _loginService = loginService;
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    final requestStatus = json['status'];
-    if (requestStatus == 'success') {
-      final userId = json['userId'] as String?;
-      final me = json['me'];
-      final username = me['name'] as String?;
-      final emails = (me['emails'] as List<dynamic>?)
-          ?.map((email) => (email['address'] as String?))
-          .toList();
-      final status = me['status'] as String?;
-      final utcOffset = me['utcOffset'] as int?;
-      final roles = (me['roles'] as List<dynamic>?)
-          ?.map((role) => role as String)
-          .toList();
-      final avatar = me['avatarUrl'] as String?;
+  get isLoggedIn => _loggedIn;
 
-      return User(
-          username: username,
-          userId: userId,
-          emails: emails,
-          roles: roles,
-          status: status ?? 'offline',
-          utcOffset: utcOffset ?? 0,
-          avatar: avatar ?? '');
-    } else {
-      return User();
+  void login({
+    required String host,
+    required String username,
+    required String password,
+  }) async {
+    if (_loggedIn == true) {
+      return;
+    }
+
+    UserInfo? userInfo = await _loginService.login(
+      http.Client(),
+      host: host,
+      username: username,
+      password: password,
+    );
+
+    if (userInfo != null) {
+      this.username = userInfo.username;
+      userId = userInfo.userId;
+      roles = userInfo.roles;
+      authToken = userInfo.authToken;
+
+      notifyListeners();
     }
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:braid/services/rocketchat.dart';
+import 'package:braid/services/rocketchat/rocketchat_login.dart';
 import 'package:braid/user/user.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
