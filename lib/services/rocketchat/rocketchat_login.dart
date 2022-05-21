@@ -12,14 +12,17 @@ class RocketchatLogin implements LoginService {
       {required String host,
       required String username,
       required String password}) async {
-    final url = Uri.https(host, 'api/v1');
-    final response =
-        await client.post(url, body: {'user': username, 'password': password});
+    final url = Uri.https(host, 'api/v1/login');
+    final headers = {'Content-type': 'application/json'};
+    final body = jsonEncode({'user': username, 'password': password});
 
-    if (response.statusCode != 200) {
-      return null;
-    }
+    final response = await client.post(
+      url,
+      headers: headers,
+      body: body,
+    );
 
+    if (response.statusCode != 200) return null;
     return _parseUserInfo(jsonDecode(response.body));
   }
 
@@ -30,16 +33,16 @@ class RocketchatLogin implements LoginService {
 
   UserInfo? _parseUserInfo(Map<String, dynamic> json) {
     final requestStatus = json['status'];
-    if (requestStatus != 'success') {
-      return null;
-    }
+    if (requestStatus != 'success') return null;
 
-    final userId = json['userId'] as String?;
-    final authToken = json['authToken'] as String?;
-    final me = json['me'];
+    final data = json["data"];
+
+    final userId = data['userId'] as String?;
+    final authToken = data['authToken'] as String?;
+    final me = data['me'];
     final username = me['name'] as String?;
     final emails = (me['emails'] as List<dynamic>?)
-        ?.map((email) => (email['address'] as String?))
+        ?.map((email) => (email['address'] as String?) ?? '')
         .toList();
     final status = me['status'] as String?;
     final utcOffset = me['utcOffset'] as int?;
@@ -66,7 +69,7 @@ class RocketchatLogin implements LoginService {
         userId: userId ?? '',
         roles: roles ?? List<AccountRole>.empty(),
         authToken: authToken ?? '',
-        emails: emails,
+        emails: emails ?? List<String>.empty(),
         status: onlineStatus,
         utcOffset: utcOffset ?? 0,
         avatar: avatar ?? '');

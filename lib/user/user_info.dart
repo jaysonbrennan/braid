@@ -24,7 +24,7 @@ class UserInfo {
     required this.userId,
     required this.roles,
     required this.authToken,
-    emails,
+    List<String>? emails,
     this.status = OnlineStatus.offline,
     this.utcOffset = 0,
     this.avatar = '',
