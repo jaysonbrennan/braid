@@ -4,7 +4,7 @@ import 'user_info.dart';
 import 'package:http/http.dart' as http;
 
 class User with ChangeNotifier {
-  LoginService _loginService;
+  final LoginService _loginService;
   String? username;
   String? userId;
   List<AccountRole>? roles;
@@ -24,9 +24,8 @@ class User with ChangeNotifier {
     required String username,
     required String password,
   }) async {
-    if (_loggedIn == true) {
-      return true;
-    }
+    // Check if we are already logged in
+    if (_loggedIn == true) return true;
 
     UserInfo? userInfo = await _loginService.login(
       http.Client(),
