@@ -1,6 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:braid/services/rocketchat/rocketchat_login.dart';
-import 'package:braid/user/user.dart';
+import 'package:braid/user/user_info.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' as http;
@@ -44,17 +46,28 @@ void main() {
           '}'
           '}';
 
-      when(client.post(Uri.parse('https://hostname.com/api/v1'),
-          body: {'user': 'bob', 'password': 'p4ssw0rd'})).thenAnswer((_) async {
+      when(client.post(any,
+              headers: anyNamed('headers'), body: anyNamed('body')))
+          .thenAnswer((_) async {
         return http.Response(responseString, 200);
       });
 
       // Run
-      final user = await login(client,
+      var loginService = RocketchatLogin();
+      final userInfo = await loginService.login(client,
           host: 'hostname.com', username: 'bob', password: 'p4ssw0rd');
 
       // Verify
-      expect(user, isA<User>());
+      expect(userInfo, isA<UserInfo>());
+      expect(userInfo?.username, 'Rocket Cat');
+      expect(userInfo?.userId, 'aobEdbYhXfu5hkeqG');
+      expect(userInfo?.roles, {AccountRole.admin});
+      expect(
+          userInfo?.authToken, '9HqLlyZOugoStsXCUfD_0YdwnNnunAJF8V47U3QHXSq');
+      expect(userInfo?.emails, {'rocket.cat@rocket.chat'});
+      expect(userInfo?.status, OnlineStatus.offline);
+      expect(userInfo?.utcOffset, -3);
+      expect(userInfo?.avatar, 'http://localhost:3000/avatar/test');
     });
   });
 }
