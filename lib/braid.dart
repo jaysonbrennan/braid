@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'routing/braid_delegate.dart';
 import 'routing/braid_parser.dart';
 import 'routing/route_state.dart';
+import 'themes/braid_theme.dart';
 import 'user/user.dart';
 
 class Braid extends StatefulWidget {
@@ -30,15 +31,11 @@ class _BraidState extends State<Braid> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<User>(
       create: (context) => User(loginService: RocketchatLogin()),
-      child: MaterialApp(
+      child: MaterialApp.router(
         title: 'Braid',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: MaterialApp.router(
-          routeInformationParser: _routeInformationParser,
-          routerDelegate: _routerDelegate,
-        ),
+        theme: braidLightTheme,
+        routeInformationParser: _routeInformationParser,
+        routerDelegate: _routerDelegate,
       ),
     );
   }

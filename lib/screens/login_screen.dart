@@ -31,28 +31,25 @@ class LoginScreen extends StatelessWidget {
               decoration: const InputDecoration(labelText: 'Password'),
               obscureText: true,
             ),
-            TextButton(
-              onPressed: () {
-                var user = context.read<User>();
-                _login(
-                  user,
-                  host: _urlController.text,
-                  username: _usernameController.text,
-                  password: _passwordController.text,
-                );
-              },
-              style: TextButton.styleFrom(
-                  backgroundColor: Colors.yellow,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  padding: const EdgeInsets.fromLTRB(25, 15, 25, 15)),
-              child: const Text('Log In'),
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: TextButton(
+                onPressed: () {
+                  var user = context.read<User>();
+                  _login(
+                    user,
+                    host: _urlController.text,
+                    username: _usernameController.text,
+                    password: _passwordController.text,
+                  );
+                },
+                child: const Text('Log In'),
+              ),
             ),
           ],
         ),
       ),
-      backgroundColor: const Color(0xFF424242), // dark grey
+      //backgroundColor: const Color(0xFF424242), // dark grey
     );
   }
 
@@ -71,11 +68,9 @@ class LoginScreen extends StatelessWidget {
     if (success) {
       _urlController.text = '';
       _usernameController.text = '';
-      _displayLoginError = false;
-    } else {
-      _displayLoginError = true;
     }
 
+    _displayLoginError = !success;
     _passwordController.text = '';
   }
 }
