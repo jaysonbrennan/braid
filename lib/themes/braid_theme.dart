@@ -14,10 +14,10 @@ final braidLightTheme = ThemeData(
     background: Colors.blue,
     onBackground: Colors.yellow,
     surface: Colors.blue,
-    onSurface: Colors.yellow,
+    onSurface: Colors.black,
     error: Colors.red,
     onError: Colors.white,
   ),
-  scaffoldBackgroundColor: Colors.blue,
+  scaffoldBackgroundColor: Colors.white,
   textButtonTheme: textButtonTheme,
 );
