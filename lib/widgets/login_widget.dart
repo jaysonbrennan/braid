@@ -50,6 +50,13 @@ class _LoginWidgetState extends State<LoginWidget> {
             child: const Text('Log In'),
           ),
         ),
+        if (_displayLoginError)
+          const Text(
+            'Log in failed!',
+            style: TextStyle(color: Colors.red),
+          )
+        else
+          const Text('')
       ],
     );
   }
@@ -71,7 +78,9 @@ class _LoginWidgetState extends State<LoginWidget> {
       _usernameController.text = '';
     }
 
-    _displayLoginError = !success;
+    setState(() {
+      _displayLoginError = !success;
+    });
     _passwordController.text = '';
   }
 }
