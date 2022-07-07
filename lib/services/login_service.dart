@@ -7,5 +7,8 @@ abstract class LoginService {
       required String username,
       required String password});
 
-  void logout(String authToken);
+  Future<bool> logout(http.Client client,
+      {required String host,
+      required String username,
+      required String authToken});
 }

@@ -30,14 +30,13 @@ class BraidRouterDelegate extends RouterDelegate<ParsedRoute>
     return Navigator(
       key: navigatorKey,
       pages: [
-        if (loggedIn)
-          MaterialPage(
-            key: const ValueKey('Channel Screen'),
-            child: ChannelScreen(),
-          )
-        else
-          MaterialPage(
-            key: const ValueKey('Login Screen'),
+        const MaterialPage(
+          key: ValueKey('Channel Screen'),
+          child: ChannelScreen(),
+        ),
+        if (!loggedIn)
+          const MaterialPage(
+            key: ValueKey('Login Screen'),
             child: LoginScreen(),
           )
       ],

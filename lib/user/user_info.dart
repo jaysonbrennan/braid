@@ -14,10 +14,10 @@ class UserInfo {
   final String userId;
   final List<AccountRole> roles;
   final String authToken;
-  List<String> emails;
-  OnlineStatus status;
-  int utcOffset;
-  String avatar;
+  final List<String> emails;
+  final OnlineStatus status;
+  final int utcOffset;
+  final String avatar;
 
   UserInfo({
     required this.username,

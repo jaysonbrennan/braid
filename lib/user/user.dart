@@ -5,19 +5,20 @@ import 'package:http/http.dart' as http;
 
 class User with ChangeNotifier {
   final LoginService _loginService;
-  String? username;
-  String? userId;
-  List<AccountRole>? roles;
-  String? authToken;
-  List<String>? emails;
-  String? status;
-  int? utcOffset;
-  String? avatar;
+  late String _host;
+  late String _username;
+  late String _userId;
+  late List<AccountRole> _roles;
+  late String _authToken;
+  late List<String> _emails;
+  late String _status;
+  late int _utcOffset;
+  late String _avatar;
   bool _loggedIn = false;
 
   User({required LoginService loginService}) : _loginService = loginService;
 
-  get isLoggedIn => _loggedIn;
+  bool get isLoggedIn => _loggedIn;
 
   Future<bool> login({
     required String host,
@@ -25,7 +26,7 @@ class User with ChangeNotifier {
     required String password,
   }) async {
     // Check if we are already logged in
-    if (_loggedIn == true) return true;
+    if (_loggedIn) return true;
 
     UserInfo? userInfo = await _loginService.login(
       http.Client(),
@@ -35,15 +36,30 @@ class User with ChangeNotifier {
     );
 
     if (userInfo != null) {
-      this.username = userInfo.username;
-      userId = userInfo.userId;
-      roles = userInfo.roles;
-      authToken = userInfo.authToken;
+      _username = userInfo.username;
+      _userId = userInfo.userId;
+      _roles = userInfo.roles;
+      _authToken = userInfo.authToken;
 
+      _host = host;
       _loggedIn = true;
       notifyListeners();
     }
-
     return _loggedIn;
+  }
+
+  Future<bool> logout() async {
+    // Check if we are logged in
+    if (!_loggedIn) return true;
+
+    // TODO: Doesn't seem to be working
+    var success = await _loginService.logout(http.Client(),
+        host: _host, username: _username, authToken: _authToken);
+
+    if (success) {
+      _loggedIn = false;
+      notifyListeners();
+    }
+    return success;
   }
 }

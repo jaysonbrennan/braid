@@ -23,18 +23,26 @@ class RocketchatLogin implements LoginService {
     );
 
     if (response.statusCode != 200) return null;
+    print(response.body);
     return _parseUserInfo(jsonDecode(response.body));
   }
 
   @override
-  void logout(String authToken) {
-    // TODO: implement logout
+  Future<bool> logout(http.Client client,
+      {required String host,
+      required String username,
+      required String authToken}) async {
+    final url = Uri.https(host, 'api/v1/logout');
+    final headers = {'X-Auth-Token': authToken, 'X-User-Id': username};
+
+    // TODO #1: Check response status code
+    await client.post(url, headers: headers);
+    return true;
   }
 
   UserInfo? _parseUserInfo(Map<String, dynamic> json) {
     final requestStatus = json['status'];
     if (requestStatus != 'success') return null;
-
     final data = json["data"];
 
     final userId = data['userId'] as String?;
@@ -50,7 +58,6 @@ class RocketchatLogin implements LoginService {
       if (role == 'admin') {
         return AccountRole.admin;
       }
-
       return AccountRole.user;
     }).toList();
     final avatar = me['avatarUrl'] as String?;
