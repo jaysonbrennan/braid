@@ -52,7 +52,6 @@ class User with ChangeNotifier {
     // Check if we are logged in
     if (!_loggedIn) return true;
 
-    // TODO: Doesn't seem to be working
     var success = await _loginService.logout(http.Client(),
         host: _host, username: _username, authToken: _authToken);
 
