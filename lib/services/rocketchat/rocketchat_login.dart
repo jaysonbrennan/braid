@@ -23,7 +23,6 @@ class RocketchatLogin implements LoginService {
     );
 
     if (response.statusCode != 200) return null;
-    print(response.body);
     return _parseUserInfo(jsonDecode(response.body));
   }
 
