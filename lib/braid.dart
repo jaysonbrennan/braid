@@ -18,7 +18,7 @@ class Braid extends StatefulWidget {
 class _BraidState extends State<Braid> {
   final _routeState = RouteState();
   final _routeInformationParser = BraidRouteInformationParser();
-  late final _routerDelegate;
+  late final BraidRouterDelegate _routerDelegate;
 
   @override
   void initState() {

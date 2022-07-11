@@ -2,14 +2,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'parsed_route.dart';
+import 'braid_route.dart';
 import 'route_state.dart';
 import '../screens/login_screen.dart';
-import '../screens/channel_screen.dart';
 import '../user/user.dart';
+import '../widgets/braid_scaffold.dart';
 
-class BraidRouterDelegate extends RouterDelegate<ParsedRoute>
-    with ChangeNotifier, PopNavigatorRouterDelegateMixin<ParsedRoute> {
+class BraidRouterDelegate extends RouterDelegate<BraidRoute>
+    with ChangeNotifier, PopNavigatorRouterDelegateMixin<BraidRoute> {
   final RouteState _routeState;
 
   @override
@@ -19,8 +19,9 @@ class BraidRouterDelegate extends RouterDelegate<ParsedRoute>
     _routeState.addListener(notifyListeners);
   }
 
+  // TODO: Update this to support the web
   @override
-  ParsedRoute get currentConfiguration => _routeState.route;
+  BraidRoute get currentConfiguration => HomeRoute();
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +33,13 @@ class BraidRouterDelegate extends RouterDelegate<ParsedRoute>
       pages: [
         const MaterialPage(
           key: ValueKey('Channel Screen'),
-          child: ChannelScreen(),
+          child: BraidScaffold(),
         ),
         if (!loggedIn)
           const MaterialPage(
             key: ValueKey('Login Screen'),
             child: LoginScreen(),
-          )
+          ),
       ],
       onPopPage: (route, result) {
         return route.didPop(result);
@@ -47,7 +48,7 @@ class BraidRouterDelegate extends RouterDelegate<ParsedRoute>
   }
 
   @override
-  Future<void> setNewRoutePath(ParsedRoute configuration) {
+  Future<void> setNewRoutePath(BraidRoute configuration) {
     _routeState.route = configuration;
     return SynchronousFuture(null);
   }

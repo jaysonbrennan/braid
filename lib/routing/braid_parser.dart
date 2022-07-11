@@ -1,15 +1,17 @@
-import 'parsed_route.dart';
+import 'braid_route.dart';
 import 'package:flutter/widgets.dart';
 
-class BraidRouteInformationParser extends RouteInformationParser<ParsedRoute> {
+class BraidRouteInformationParser extends RouteInformationParser<BraidRoute> {
   @override
-  Future<ParsedRoute> parseRouteInformation(
+  Future<BraidRoute> parseRouteInformation(
     RouteInformation routeInformation,
   ) async {
-    return ParsedRoute(routeInformation.location!);
+    // TODO: Update this to support the web
+    return HomeRoute();
   }
 
   @override
-  RouteInformation restoreRouteInformation(ParsedRoute configuration) =>
-      RouteInformation(location: configuration.path);
+  RouteInformation restoreRouteInformation(BraidRoute configuration) =>
+      // TODO: Update this to support the web
+      const RouteInformation(location: '/home'); 
 }
