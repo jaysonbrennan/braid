@@ -31,9 +31,9 @@ class BraidRouterDelegate extends RouterDelegate<BraidRoute>
     return Navigator(
       key: navigatorKey,
       pages: [
-        const MaterialPage(
-          key: ValueKey('Channel Screen'),
-          child: BraidScaffold(),
+        MaterialPage(
+          key: const ValueKey('Channel Screen'),
+          child: BraidScaffold(routeState: _routeState),
         ),
         if (!loggedIn)
           const MaterialPage(
