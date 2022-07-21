@@ -2,11 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'braid_route.dart';
-import 'route_state.dart';
 import '../screens/login_screen.dart';
 import '../user/user.dart';
 import '../widgets/braid_scaffold.dart';
+import 'braid_route.dart';
+import 'route_state.dart';
 
 class BraidRouterDelegate extends RouterDelegate<BraidRoute>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin<BraidRoute> {

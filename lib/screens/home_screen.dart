@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 
 import '../user/user.dart';
 
-class ChannelScreen extends StatelessWidget {
-  const ChannelScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

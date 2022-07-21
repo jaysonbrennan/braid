@@ -1,5 +1,6 @@
-import 'braid_route.dart';
 import 'package:flutter/widgets.dart';
+
+import 'braid_route.dart';
 
 class BraidRouteInformationParser extends RouteInformationParser<BraidRoute> {
   @override
