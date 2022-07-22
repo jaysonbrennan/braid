@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 import '../channel_service.dart';
 
-class RocketChatChannels implements ChannelService {
+class RocketChatChannel implements ChannelService {
   @override
   Future<List<Channel>> retrieveChannels(http.Client client,
       {required String host,
