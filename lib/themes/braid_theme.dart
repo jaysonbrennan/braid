@@ -14,7 +14,7 @@ final braidLightTheme = ThemeData(
     background: Colors.blue,
     onBackground: Colors.yellow,
     surface: Colors.blue,
-    onSurface: Colors.black,
+    onSurface: Colors.yellow,
     error: Colors.red,
     onError: Colors.white,
   ),
