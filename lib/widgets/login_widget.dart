@@ -31,11 +31,11 @@ class _LoginWidgetState extends State<LoginWidget> {
               labelText: 'Url',
             ),
             LoginTextField(
-              urlController: _urlController,
+              urlController: _usernameController,
               labelText: 'Username',
             ),
             LoginTextField(
-              urlController: _urlController,
+              urlController: _passwordController,
               labelText: 'Password',
               obscureText: true,
             ),
