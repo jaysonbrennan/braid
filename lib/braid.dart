@@ -32,6 +32,7 @@ class _BraidState extends State<Braid> {
     return ChangeNotifierProvider<User>(
       create: (context) => User(loginService: RocketchatLogin()),
       child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
         title: 'Braid',
         theme: braidLightTheme,
         routeInformationParser: _routeInformationParser,

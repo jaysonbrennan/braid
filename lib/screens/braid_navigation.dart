@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 
 import '../routing/route_state.dart';
 
-class BraidNavigation extends StatefulWidget {
-  const BraidNavigation({Key? key, required this.routeState}) : super(key: key);
+class BraidScaffold extends StatefulWidget {
+  const BraidScaffold({Key? key, required this.routeState}) : super(key: key);
   final RouteState routeState;
 
   @override
-  State<BraidNavigation> createState() => _BraidNavigationState();
+  State<BraidScaffold> createState() => _BraidScaffoldState();
 }
 
-class _BraidNavigationState extends State<BraidNavigation> {
+class _BraidScaffoldState extends State<BraidScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
