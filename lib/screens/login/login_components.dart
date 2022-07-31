@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../user/user.dart';
+import '../../user/user.dart';
 import 'login_text_field.dart';
 
-class LoginWidget extends StatefulWidget {
-  const LoginWidget({Key? key}) : super(key: key);
+class LoginComponents extends StatefulWidget {
+  const LoginComponents({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _LoginWidgetState();
+  State<StatefulWidget> createState() => _LoginComponentsState();
 }
 
-class _LoginWidgetState extends State<LoginWidget> {
+class _LoginComponentsState extends State<LoginComponents> {
   final _urlController = TextEditingController();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
