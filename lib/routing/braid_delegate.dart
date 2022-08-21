@@ -36,8 +36,11 @@ class BraidRouterDelegate extends RouterDelegate<BraidRoute>
           child: BraidScaffold(routeState: _routeState),
         ),
         if (!loggedIn)
-          const MaterialPage(
-            child: LoginScreen(),
+          MaterialPage(
+            child: WillPopScope(
+              onWillPop: () async => false,
+              child: const LoginScreen(),
+            ),
           ),
       ],
       onPopPage: (route, result) {
