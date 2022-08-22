@@ -2,9 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../screens/login/login_screen.dart';
-import '../user/user.dart';
 import '../screens/braid_navigation.dart';
+import '../screens/login/login_page.dart';
+import '../user/user.dart';
 import 'braid_route.dart';
 import 'route_state.dart';
 
@@ -35,13 +35,7 @@ class BraidRouterDelegate extends RouterDelegate<BraidRoute>
         MaterialPage(
           child: BraidScaffold(routeState: _routeState),
         ),
-        if (!loggedIn)
-          MaterialPage(
-            child: WillPopScope(
-              onWillPop: () async => false,
-              child: const LoginScreen(),
-            ),
-          ),
+        if (!loggedIn) LoginPage(),
       ],
       onPopPage: (route, result) {
         return route.didPop(result);
