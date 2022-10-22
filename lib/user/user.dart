@@ -1,9 +1,8 @@
-import 'package:flutter/foundation.dart';
 import '../services/login_service.dart';
 import 'user_info.dart';
 import 'package:http/http.dart' as http;
 
-class User with ChangeNotifier {
+class User {
   final LoginService _loginService;
   late String _host;
   late String _username;
@@ -43,8 +42,8 @@ class User with ChangeNotifier {
 
       _host = host;
       _loggedIn = true;
-      notifyListeners();
     }
+
     return _loggedIn;
   }
 
@@ -57,8 +56,8 @@ class User with ChangeNotifier {
 
     if (success) {
       _loggedIn = false;
-      notifyListeners();
     }
+    
     return success;
   }
 }

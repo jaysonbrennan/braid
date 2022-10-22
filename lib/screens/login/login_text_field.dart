@@ -23,6 +23,7 @@ class LoginTextField extends StatelessWidget {
         controller: _urlController,
         obscureText: _obscureText,
         cursorColor: Colors.yellow,
+        autocorrect: false,
         style: const TextStyle(
           color: Colors.yellow,
         ),

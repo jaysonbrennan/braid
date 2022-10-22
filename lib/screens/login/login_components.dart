@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../routing/login_state.dart';
 import '../../user/user.dart';
 import 'login_text_field.dart';
 
@@ -50,8 +51,10 @@ class _LoginComponentsState extends State<LoginComponents> {
             ),
             onPressed: () {
               var user = context.read<User>();
+              var loginState = context.read<LoginState>();
               _login(
                 user,
+                loginState,
                 host: _urlController.text,
                 username: _usernameController.text,
                 password: _passwordController.text,
@@ -72,13 +75,15 @@ class _LoginComponentsState extends State<LoginComponents> {
   }
 
   void _login(
-    User user, {
+    User user,
+    LoginState loginState, {
     required String host,
     required String username,
     required String password,
   }) async {
     final success =
         await user.login(host: host, username: username, password: password);
+    loginState.loggedIn = success;
     _onLoginAttemptComplete(success);
   }
 

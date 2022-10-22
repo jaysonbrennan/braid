@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
-import '../routing/route_state.dart';
+import '../routing/login_state.dart';
 
 class BraidScaffold extends StatefulWidget {
-  const BraidScaffold({Key? key, required this.routeState}) : super(key: key);
-  final RouteState routeState;
+  const BraidScaffold({Key? key}) : super(key: key);
 
   @override
   State<BraidScaffold> createState() => _BraidScaffoldState();
 }
 
 class _BraidScaffoldState extends State<BraidScaffold> {
+  int _tabIndex = 0;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +35,7 @@ class _BraidScaffoldState extends State<BraidScaffold> {
             label: 'Settings',
           ),
         ],
-        currentIndex: widget.routeState.tabIndex,
+        currentIndex: _tabIndex,
         onTap: _onTabSelected,
       ),
     );
@@ -42,7 +43,7 @@ class _BraidScaffoldState extends State<BraidScaffold> {
 
   void _onTabSelected(int index) {
     setState(() {
-      widget.routeState.tabIndex = index;
+      _tabIndex = index;
     });
   }
 }

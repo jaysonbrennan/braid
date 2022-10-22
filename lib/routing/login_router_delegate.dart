@@ -5,34 +5,27 @@ import 'package:provider/provider.dart';
 import '../screens/braid_navigation.dart';
 import '../screens/login/login_page.dart';
 import '../user/user.dart';
-import 'braid_route.dart';
-import 'route_state.dart';
+import 'login_route.dart';
+import 'login_state.dart';
 
-class BraidRouterDelegate extends RouterDelegate<BraidRoute>
-    with ChangeNotifier, PopNavigatorRouterDelegateMixin<BraidRoute> {
-  final RouteState _routeState;
-
+class LoginRouterDelegate extends RouterDelegate<LoginRoute>
+    with ChangeNotifier, PopNavigatorRouterDelegateMixin<LoginRoute> {
   @override
   final navigatorKey = GlobalKey<NavigatorState>();
 
-  BraidRouterDelegate(this._routeState) {
-    _routeState.addListener(notifyListeners);
-  }
-
   // TODO: Update this to support the web
   @override
-  BraidRoute get currentConfiguration => HomeRoute();
+  LoginRoute get currentConfiguration => LoginRoute();
 
   @override
   Widget build(BuildContext context) {
-    var loggedIn = context.select<User, bool>(
-      (user) => user.isLoggedIn,
-    );
+    var loggedIn =
+        context.select<LoginState, bool>((loginState) => loginState.loggedIn);
     return Navigator(
       key: navigatorKey,
       pages: [
         MaterialPage(
-          child: BraidScaffold(routeState: _routeState),
+          child: BraidScaffold(),
         ),
         if (!loggedIn) LoginPage(),
       ],
@@ -43,8 +36,7 @@ class BraidRouterDelegate extends RouterDelegate<BraidRoute>
   }
 
   @override
-  Future<void> setNewRoutePath(BraidRoute configuration) {
-    _routeState.route = configuration;
+  Future<void> setNewRoutePath(LoginRoute configuration) {
     return SynchronousFuture(null);
   }
 }
