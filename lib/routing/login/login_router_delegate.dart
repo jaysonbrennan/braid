@@ -2,9 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../screens/braid_navigation.dart';
-import '../screens/login/login_page.dart';
-import '../user/user.dart';
+import '../../screens/braid_navigation.dart';
+import '../../screens/login/login_page.dart';
 import 'login_route.dart';
 import 'login_state.dart';
 

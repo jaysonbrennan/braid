@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../routing/login_state.dart';
-
 class BraidScaffold extends StatefulWidget {
   const BraidScaffold({Key? key}) : super(key: key);
 
@@ -11,7 +9,7 @@ class BraidScaffold extends StatefulWidget {
 
 class _BraidScaffoldState extends State<BraidScaffold> {
   int _tabIndex = 0;
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
