@@ -30,7 +30,6 @@ class BraidRouterDelegate extends RouterDelegate<BraidRoute>
     );
     return Navigator(
       key: navigatorKey,
-      transitionDelegate: const DefaultTransitionDelegate(),
       pages: [
         MaterialPage(
           child: BraidScaffold(routeState: _routeState),
